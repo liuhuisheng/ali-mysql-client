@@ -14,10 +14,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@gitlab.alibaba-inc.com:huisheng.lhs/mysql-client.git"
+    "url": "https://github.com/liuhuisheng/ali-mysql-client"
   },
-  "author": "huisheng.lhs@alibaba-inc.com",
-  "license": "ISC",
+  "author": "liuhuisheng2009@gmail.com",
+  "license": "MIT",
   "dependencies": {
     "co": "^4.6.0",
     "ali-rds": "^3.3.0"
