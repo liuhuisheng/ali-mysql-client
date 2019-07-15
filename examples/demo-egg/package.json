@@ -1,0 +1,19 @@
+{
+  "name": "demo-egg",
+  "dependencies": {
+    "egg": "^2.22.2",
+    "egg-mysql": "^3.0.0",
+    "ali-mysql-client": "^1.0.0"
+  },
+  "devDependencies": {
+    "egg-bin": "^4.13.0",
+    "egg-mock": "^3.23.1"
+  },
+  "scripts": {
+    "dev": "egg-bin dev",
+    "debug": "egg-bin debug",
+    "test": "egg-bin test",
+    "cov": "egg-bin cov"
+  },
+  "private": true
+}

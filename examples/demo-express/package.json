@@ -1,0 +1,11 @@
+{
+  "name": "demo-express",
+  "scripts": {
+    "dev": "node --harmony app.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "ali-mysql-client": "^1.0.0"
+  },
+  "devDependencies": {}
+}

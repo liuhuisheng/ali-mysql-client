@@ -1,0 +1,12 @@
+{
+  "name": "demo-koa",
+  "scripts": {
+    "dev": "node --harmony app.js"
+  },
+  "dependencies": {
+    "koa": "^2.7.0",
+    "koa-router": "^7.4.0",
+    "ali-mysql-client": "^1.0.0"
+  },
+  "devDependencies": {}
+}
