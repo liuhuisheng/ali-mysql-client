@@ -22,9 +22,6 @@
     "co": "^4.6.0",
     "ali-rds": "^3.3.0"
   },
-  "publishConfig": {
-    "registry": "http://registry.npm.alibaba-inc.com"
-  },
   "devDependencies": {
     "babel-jest": "^23.0.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
