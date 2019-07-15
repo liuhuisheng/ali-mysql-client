@@ -1,9 +1,14 @@
 ## 说明
-这是一个提供强大流畅的api访问数据库的工具类库，希望访问数据库逻辑都能使用一行代码完成，ata介绍[Nodejs数据库操作代码优化](https://www.atatech.org/articles/111311)
+这是一个为nodejs提供强大流畅的api访问数据库的工具类库，希望访问数据库逻辑都能使用一行代码完成
+
+不同框架示例：
+- [demo-egg](https://github.com/liuhuisheng/ali-mysql-client/tree/master/examples/demo-egg)
+- [demo-koa](https://github.com/liuhuisheng/ali-mysql-client/tree/master/examples/demo-koa)
+- [demo-express](https://github.com/liuhuisheng/ali-mysql-client/tree/master/examples/demo-express)
 
 ## 初始化
 
-初始化对象，传入this.app.mysql对象
+初始化对象如下，或可以参照examples中的用法
 ```javascript
 const DbClient = require("ali-mysql-client");
 
