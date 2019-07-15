@@ -1,5 +1,5 @@
 ## 说明
-这是一个基于@ali/egg-mysql或ali-rds提供更强大流畅的api访问数据库的工具类库，希望访问数据库逻辑都能使用一行代码完成，ata介绍[Nodejs数据库操作代码优化](https://www.atatech.org/articles/111311)
+这是一个提供强大流畅的api访问数据库的工具类库，希望访问数据库逻辑都能使用一行代码完成，ata介绍[Nodejs数据库操作代码优化](https://www.atatech.org/articles/111311)
 
 ## 初始化
 
@@ -20,7 +20,6 @@ const db2 = new DbClient(this.app.mysql);
 ```
 
 可以在egg项目根目录下app.js中注入到app全局对象中，然后在controller或service中就可以通过this.app.db访问；
-也可以直接使用egg插件进行自动初始化 [@ali/egg-mysql-client](https://web.npm.alibaba-inc.com/package/@ali/egg-mysql-client)
 
 app.js
 ```javascript
@@ -65,7 +64,8 @@ const trans = await db.useTransaction();
 
 try {
   // 数据库操作
-  // await trans.insert(...) await trans.update(...)
+  // await trans.insert(...)
+  // await trans.update(...)
   await trans.commit();
 } catch (e) {
   await trans.rollback();
