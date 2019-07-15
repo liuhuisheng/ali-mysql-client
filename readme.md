@@ -24,7 +24,7 @@ const db1 = new DbClient({
 const db2 = new DbClient(this.app.mysql);
 ```
 
-可以在egg项目根目录下app.js中注入到app全局对象中，然后在controller或service中就可以通过this.app.db访问；
+比如在egg框架中，可以在egg项目根目录下app.js中注入到app全局对象中，然后在controller或service中就可以通过this.app.db访问；
 
 app.js
 ```javascript
