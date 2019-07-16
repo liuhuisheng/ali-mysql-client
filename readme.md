@@ -138,7 +138,7 @@ var result = await db
 查询除了支持各种多表join外，当然还支持groupby orderby having等复杂查询操作
 
 ```javascript
-const result = db
+const result = await db
   .select("a1 as a, b1 as b, count(c) as count")
   .from("table")
   .where("date", db.literals.now, "lt") // date < now()
