@@ -1,10 +1,5 @@
-## 说明
-这是一个为nodejs提供强大流畅的api访问数据库的工具类库，希望访问数据库逻辑都能使用一行代码完成
-
-不同框架示例：
-- [demo-egg](https://github.com/liuhuisheng/ali-mysql-client/tree/master/examples/demo-egg)
-- [demo-koa](https://github.com/liuhuisheng/ali-mysql-client/tree/master/examples/demo-koa)
-- [demo-express](https://github.com/liuhuisheng/ali-mysql-client/tree/master/examples/demo-express)
+## 简介
+为nodejs提供强大流畅的api访问数据库的工具类库，目标是希望访问数据库逻辑都能使用一行代码完成，让访问数据库变得更加简单优雅。
 
 ## 初始化
 
@@ -20,9 +15,14 @@ const db1 = new DbClient({
   database : 'my_db'
 });
 
-// 也支持直接传入egg-mysql或ali-rds对象
+// 也支持直接传入ali-rds或egg-mysql对象
 const db2 = new DbClient(this.app.mysql);
 ```
+
+不同框架的使用示例：
+- [demo-egg](https://github.com/liuhuisheng/ali-mysql-client/tree/master/examples/demo-egg)
+- [demo-koa](https://github.com/liuhuisheng/ali-mysql-client/tree/master/examples/demo-koa)
+- [demo-express](https://github.com/liuhuisheng/ali-mysql-client/tree/master/examples/demo-express)
 
 比如在egg框架中，可以在egg项目根目录下app.js中注入到app全局对象中，然后在controller或service中就可以通过this.app.db访问；
 
