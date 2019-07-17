@@ -1,6 +1,6 @@
 'use strict';
 
-const DbClient = require('../index');
+const DbClient = require('../lib/index');
 
 const mockResult = [
   { id: 101, b: 'hello', c: 'world', total: 50 },

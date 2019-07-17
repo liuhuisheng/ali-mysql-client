@@ -1,6 +1,6 @@
 'use strict';
 
-const DbClient = require('../index');
+const DbClient = require('../lib/index');
 
 const mockResult = {
   fieldCount: 0,
