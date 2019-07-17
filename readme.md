@@ -350,8 +350,26 @@ const result = await db.select('*')
   .queryList();
 ```
 
-
 ## 已内置的operator及ignore
 - [内置的默认operator](https://github.com/liuhuisheng/ali-mysql-client/blob/master/configuration/operator.js)
+  - eq (equal)
+  - ne (not equal)
+  - in (in)
+  - gt (greater than)
+  - ge (greater than or equal)
+  - lt (less than)
+  - le (less than or equal）
+  - isnull (is null)
+  - isnotnull (is not null)
+  - like (like)
+  - startwith (start with)
+  - endwith (end with)
+  - between (between)
+  - findinset (find_in_set(value, field))
+  - insetfind (find_in_set(field, value))
+  - sql (custom sql)
+  - keywords (keywords query)
 
 - [内置的默认ignore](https://github.com/liuhuisheng/ali-mysql-client/blob/master/configuration/ignore.js)
+    - ifHave (如果有值则加为条件）
+    - ifNumber (如果是数值则加为条件）
