@@ -1,4 +1,4 @@
-## 简介
+## 项目简介
 [![NPM version][npm-image]][npm-url]
 [![npm download][download-image]][download-url]
 
@@ -9,22 +9,19 @@
 
 为nodejs访问mysql数据库提供强大流畅的api的工具类库，目标是希望访问数据库逻辑都能使用一行代码完成，让访问数据库变得更加简单优雅。
 
-## 初始化
+## 使用说明
 
-初始化对象如下，或可以参照examples中的用法
+### 1. 初始化配置
+
+初始化如下
+
 ```javascript
-const DbClient = require("ali-mysql-client");
-
-// 支持传入数据库连接配置
-const db1 = new DbClient({
+const db = new DbClient({
   host     : '127.0.0.1',
   user     : 'root',
   password : 'secret',
   database : 'my_db'
 });
-
-// 也支持直接传入ali-rds或egg-mysql对象
-const db2 = new DbClient(this.app.mysql);
 ```
 
 不同框架的使用示例：
@@ -32,65 +29,12 @@ const db2 = new DbClient(this.app.mysql);
 - [demo-koa](https://github.com/liuhuisheng/ali-mysql-client/tree/master/examples/demo-koa)
 - [demo-express](https://github.com/liuhuisheng/ali-mysql-client/tree/master/examples/demo-express)
 
-比如在egg框架中，可以在egg项目根目录下app.js中注入到app全局对象中，然后在controller或service中就可以通过this.app.db访问；
+### 2. 构造查询
 
-app.js
-```javascript
-const DbClient = require("ali-mysql-client");
-
-module.exports = function (app) {
-  app.db = new DbClient(app.mysql);
-
-  const config = app.db.config();
-
-  // 自定义operator
-  config.registerOperator('ne', ({ field, value }) => {
-    return { sql: '?? <> ?', arg: [ field, value ] };
-  });
-
-  // 自定义ignore
-  config.registerIgnore('ifNumber', ({ value }) => {
-    return !isNaN(Number(value));
-  });
-
-  // 监听事件 执行前
-  config.onBeforeExecute(function({ sql }){
-    console.log(sql);
-  });
-
-  // 监听事件 执行后
-  config.onAfterExecute(function({ sql, result }){
-    console.log(result);
-  });
-
-  // 监听事件 执行出错
-  config.onExecuteError(function({ sql, error }){
-    console.log(error);
-  });
-};
-```
-
-## 事务控制
+- 2.1 查询单个值
 
 ```javascript
-const trans = await db.useTransaction();
-
-try {
-  // 数据库操作
-  // await trans.insert(...)
-  // await trans.update(...)
-  await trans.commit();
-} catch (e) {
-  await trans.rollback();
-}
-```
-
-## 查询
-
-查询单个值
-
-```javascript
-//查询单个值，比如下面例子返回的是数字51，满足条件的数据条数
+// 查询单个值，比如下面例子返回的是数字51，满足条件的数据条数
 var result = await db
   .select("count(1)")
   .from("page")
@@ -98,7 +42,7 @@ var result = await db
   .queryValue();
 ```
 
-查询单条数据
+- 2.2 查询单条数据
 
 ```javascript
 // 查询单条数据，返回的是 result = {id:12, name: '测试页面', ....}
@@ -109,7 +53,7 @@ const result = await db
   .queryRow();
 ```
 
-查询多条数据
+- 2.3 查询多条数据
 
 ```javascript
 // 查询多条数据 返回的是 ressult = [{...}, {...}];
@@ -120,7 +64,7 @@ const result = await db
   .queryList();
 ```
 
-查询多条数据（服务端分页）
+- 2.4 服务端分页查询
 
 ```javascript
 // 查询多条数据（服务端分页） 返回的是 ressult = {total: 100, rows:[{...}, {...}]};
@@ -131,7 +75,7 @@ const result = await db
   .queryListWithPaging(3, 20); //每页 20 条，取第 3 页
 ```
 
-多表关联查询
+- 2.5 多表关联查询
 
 ```javascript
 // 多表关联查询
@@ -143,7 +87,7 @@ var result = await db
   .queryList();
 ```
 
-查询除了支持各种多表join外，当然还支持groupby orderby having等复杂查询操作
+- 2.6 查询除了支持各种多表join外，当然还支持groupby orderby having等复杂查询操作
 
 ```javascript
 const result = await db
@@ -157,7 +101,7 @@ const result = await db
   .queryListWithPaging(2); //默认每页20条，取第2页
 ```
 
-## 插入
+### 3. 构造插入
 
 ```javascript
 const task = {
@@ -167,28 +111,33 @@ const task = {
   result: "result1"
 };
 
-//插入一条数据
-const result = await db.insert("task", task).execute();
+// 插入一条数据
+const result = await db
+  .insert("task", task)
+  .execute();
 
-//也支持直接写字段，支持增加字段
+// 也支持直接写字段，支持增加字段
 const result = await db
   .insert("task")
   .column("action", "test")
   .column("create_time", db.literals.now)
   .execute();
 
-//插入多条数据
+// 插入多条数据
 const tasks = [ task1, taks2, task3 ];
-const result = await db.insert("task", tasks).execute();
+const result = await db
+  .insert("task", tasks)
+  .execute();
 
-//支持增加或覆盖字段
-const result = await db.insert("task", tasks)
+// 支持增加或覆盖字段
+const result = await db
+  .insert("task", tasks)
   .column('create_time', db.literals.now)  // 循环赋值给每一行数据
   .column('create_user', 'huisheng.lhs')
   .execute();
 ```
 
-## 更新
+### 4. 构造更新
 
 ```javascript
 const task = {
@@ -206,14 +155,14 @@ const result = await db
 
 //更新数据，支持增加字段
 const result = await db
-  .insert("task")
+  .update("task")
   .column("action", "test-id22")
   .column("create_time", db.literals.now)
   .where('id', 2)
   .execute();
 ```
 
-## 删除
+### 5. 构造删除
 
 ```javascript
 //删除id为1的数据
@@ -222,10 +171,32 @@ const result = await db
   .where("id", 1)
   .execute();
 ```
-
-## 复杂条件查询
+ 
+### 6. 事务控制
 
 ```javascript
+const trans = await db.useTransaction();
+
+try {
+  // 数据库操作
+  // await trans.insert(...)
+  // await trans.update(...)
+  await trans.commit();
+} catch (e) {
+  await trans.rollback();
+}
+```
+
+### 7. 复杂条件查询设计
+
+#### 7.1 查询条件所有参数说明
+```javascript
+// 查询条件所有参数
+const result = await db
+  .where(field, value, operator, ignore, join) // 支持的所有参数
+  .where({field, value, operator, ignore, join}) //支持对象参数
+  .queryList();
+  
 // 复杂查询条件
 const result = await db
   .select("*")
@@ -237,52 +208,49 @@ const result = await db
   .queryList();
 ```
 
-查询条件所有参数说明
+- field 字段名
+- value 传入值
+- operator 操作符，默认equal4
+- ignore 是否加为条件，返回false时则忽略该条件
+- join 连接符号(and or)，默认为and
+
+#### 7.2 操作逻辑定义operator
+
+该参数很好理解，默认值为equal，支持传字符串或传入函数，传入字符串则会匹配到已定义的逻辑，
 
 ```javascript
-// 查询条件所有参数
 const result = await db
-  .where(field, value, operator, ignore, join) // 支持的所有参数
-  .where({field, value, operator, ignore, join}) //支持对象参数
+  .select("*")
+  .from("page");
+  .where("id", 100, "lt")  // id < 100
+  .where("group_code", "dacu") // group_code = "dacu"
   .queryList();
 ```
 
-1. **field** 字段名
-2. **value** 字段值
-3. **operator** 操作符
-4. **ignore** 是否加为条件，返回false时忽略条件
-5. **join** 连接符号
-
-其中1,2不需要再解释了，5的话就是条件连接and or两种，默认为and。
-
-特别需要说明的是3 operator 和 4 ignore 都支持传字符串或传入函数，传入字符串则会匹配到已定义的逻辑，其函数的形式如下：
+大家能理解operator是为拼接查询条件使用的逻辑封装，复杂条件的拓展能力都可以靠自定义的operator来完成。其函数的形式如下：
 
 ```javascript
-const customOperator = ({field, value}) => {
-    if (...){
-        return {sql: '...', arg: [...]};
-    }
-    
-    return {sql: '...', arg: [...]};
+const customOperator =  ({ field, value }) => {
+  if (condition) {
+    return {
+      sql: '?? = ?',
+      arg: [ field, value ],
+    };
+  } else {
+    return {
+      sql: '?? > ?',
+      arg: [ field, value ],
+    };
+   }
 };
 
-const customIgnore = ({field, value}) => {
-    if (...){
-        return false;
-    }
-    
-    return true;
-};
-
-//也可以注册到全局使用
+// 可直接使用也可注册到全局
 const config = db.config();
 config.registerOperator("customOperator", customOperator);
-config.registerIgnore("customIgnore", customIgnore);
 ```
 
-operator大家能理解是为拼接查询条件使用的逻辑封装，复杂条件的拓展能力都可以靠自定义的operator来完成。
-
-ignore需要再解释下，它就是当满足xx条件时则忽略该条件，ignore设计的初衷是为了简化代码，比如以下代码是很常见的，界面上有输入值则查询，没有输入值时不做为查询条件：
+#### 7.3 是否加为条件ignore 
+这个需要解释下，当满足xx条件时则忽略该查询条件，ignore设计的初衷是为了简化代码，比如以下代码是很常见的，界面上有输入值则查询，没有输入值时不做为查询条件：
 
 ```javascript
 const query = db
@@ -294,16 +262,16 @@ if (name){
     query.where("name", name, 'like');
 }
 
-if (tech){
-    query.where('tech', tech)
+if (isNumber(source_id)){
+    query.where('source_id', source_id)
 }
 
 const result = await query.queryList();
 ```
 
-上面的代码使用ignore时，则可简化为：
+上面的代码使用ignore时则可简化为：
 
- ```javascript
+```javascript
 const result = await db
   .select("*")
   .from("page")
@@ -313,7 +281,39 @@ const result = await db
   .queryList();
 ```
 
-真实场景中的复杂查询示例
+
+支持传字符串或传入函数，传入字符串则会匹配到已定义的逻辑，其函数的形式如下：
+
+```javascript
+const customIgnore = ({field, value}) => {
+    if (...){
+        return false;
+    }
+    
+    return true;
+};
+
+//也可以注册到全局使用
+const config = db.config();
+config.registerIgnore("customIgnore", customIgnore);
+```
+
+#### 7.4 查询条件优先级支持
+
+```javascript
+// where a = 1 and (b = 1 or c < 1) and d = 1
+const result = await db.select('*')
+  .from('table')
+  .where('a', 1)
+  .where([
+    {field: 'b', value: '1', operator:'eq'},
+    {field: 'c', value: '1', operator:'lt', join: 'or'},
+  ])
+  .where('d', 1)
+  .queryList();
+```
+
+#### 7.5 真实场景中的复杂查询示例
 
 ```javascript
 // 复杂查询，真实场景示例，项目中拓展了keyword、setinset等operator及ignore
@@ -343,22 +343,39 @@ const result = await app.db
   .queryListWithPaging(query.pageIndex, query.pageSize);
 ```
 
-查询条件优先级
+### 4. 自定义配置
 
 ```javascript
-// where a = 1 and (b = 1 or c < 1) and d = 1
-const result = await db.select('*')
-  .from('table')
-  .where('a', 1)
-  .where([
-    {field: 'b', value: '1', operator:'eq'},
-    {field: 'c', value: '1', operator:'lt', join: 'or'},
-  ])
-  .where('d', 1)
-  .queryList();
+const config = db.config();
+
+// 自定义operator
+config.registerOperator('ne', ({ field, value }) => {
+  return { sql: '?? <> ?', arg: [ field, value ] };
+});
+
+// 自定义ignore
+config.registerIgnore('ifNumber', ({ value }) => {
+  return !isNaN(Number(value));
+});
+
+// 监听事件 执行前
+config.onBeforeExecute(function({ sql }) {
+  console.log(sql);
+});
+
+// 监听事件 执行后
+config.onAfterExecute(function({ sql, result }) {
+  console.log(result);
+});
+
+// 监听事件 执行出错
+config.onExecuteError(function({ sql, error }) {
+  console.log(error);
+});
 ```
 
-## 已内置的operator及ignore
+### 5. 内置的operator及ignore
+
 - [内置的默认operator](https://github.com/liuhuisheng/ali-mysql-client/blob/master/configuration/operator.js)
   - eq (equal)
   - ne (not equal)
@@ -381,3 +398,4 @@ const result = await db.select('*')
 - [内置的默认ignore](https://github.com/liuhuisheng/ali-mysql-client/blob/master/configuration/ignore.js)
     - ifHave (如果有值则加为条件）
     - ifNumber (如果是数值则加为条件）
+
