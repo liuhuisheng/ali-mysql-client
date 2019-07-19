@@ -343,7 +343,7 @@ const result = await app.db
   .queryListWithPaging(query.pageIndex, query.pageSize);
 ```
 
-### 4. 自定义配置
+### 8. 自定义配置
 
 ```javascript
 const config = db.config();
@@ -374,7 +374,7 @@ config.onExecuteError(function({ sql, error }) {
 });
 ```
 
-### 5. 内置的operator及ignore
+### 9. 内置的operator及ignore
 
 - [内置的默认operator](https://github.com/liuhuisheng/ali-mysql-client/blob/master/configuration/operator.js)
   - eq (equal)
