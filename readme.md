@@ -35,7 +35,7 @@ const db = new DbClient({
 
 ```javascript
 // 查询单个值，比如下面例子返回的是数字51，满足条件的数据条数
-var result = await db
+const result = await db
   .select("count(1)")
   .from("page")
   .where("name", "测试", "like")
@@ -79,7 +79,7 @@ const result = await db
 
 ```javascript
 // 多表关联查询
-var result = await db
+const result = await db
   .select("a.page_id, a.saga_key")
   .from("page_edit_content as a")
   .join("left join page as b on b.id = a.page_id")
