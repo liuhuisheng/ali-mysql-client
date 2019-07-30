@@ -378,7 +378,7 @@ config.onExecuteError(function({ sql, error }) {
 
 ### 9. 内置的operator及ignore
 
-- [内置的默认operator](https://github.com/liuhuisheng/ali-mysql-client/blob/master/configuration/operator.js)
+- [内置的默认operator](https://github.com/liuhuisheng/ali-mysql-client/blob/master/lib/configuration/operator.js)
   - eq (equal)
   - ne (not equal)
   - in (in)
@@ -397,7 +397,7 @@ config.onExecuteError(function({ sql, error }) {
   - sql (custom sql)
   - keywords (keywords query)
 
-- [内置的默认ignore](https://github.com/liuhuisheng/ali-mysql-client/blob/master/configuration/ignore.js)
+- [内置的默认ignore](https://github.com/liuhuisheng/ali-mysql-client/blob/master/lib/configuration/ignore.js)
     - ifHave (如果有值则加为条件）
     - ifNumber (如果是数值则加为条件）
 
