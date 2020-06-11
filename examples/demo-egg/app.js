@@ -12,13 +12,13 @@ module.exports = function(app) {
       Object.keys(mysql.clients).forEach(key => {
         app.db[key] = new DbClient({
           mysql: app.mysql.get(key),
-          config: mysqlClient.config,
+          config: mysqlClient,
         });
       });
     } else { // 单实例的情况下直接挂在app对象上
       app.db = new DbClient({
         mysql: app.mysql,
-        config: mysqlClient.config,
+        config: mysqlClient,
       });
     }
   });
