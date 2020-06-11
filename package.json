@@ -1,6 +1,6 @@
 {
   "name": "ali-mysql-client",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "a lightweight mysql tools for nodejs",
   "main": "lib/index.js",
   "scripts": {
