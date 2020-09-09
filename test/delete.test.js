@@ -12,8 +12,8 @@ const mockResult = {
   changedRows: 0,
 };
 const query = jest.fn(() => Promise.resolve(mockResult));
-const format = jest.fn(({ sql }) => sql);
-const db = new DbClient({ query, format, mock: true });
+const beginTransaction = jest.fn(() => {});
+const db = new DbClient({ query, beginTransaction });
 
 describe('删除测试', function() {
   it('删除指定数据', async () => {

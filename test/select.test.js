@@ -7,8 +7,8 @@ const mockResult = [
   { id: 102, b: 'hello2', c: 'world2' },
 ];
 const query = jest.fn(() => Promise.resolve(mockResult));
-const format = jest.fn(({ sql }) => sql);
-const db = new DbClient({ query, format, mock: true });
+const beginTransaction = jest.fn(() => {});
+const db = new DbClient({ query, beginTransaction });
 
 describe('查询测试', function() {
   it('单值查询', async () => {
@@ -107,5 +107,15 @@ describe('查询测试', function() {
       [ 'huisheng.lhs', 'b.id', 172 ]
     );
     expect(result).toBe(mockResult);
+  });
+
+  it('toSQL转换', async () => {
+    const result = await db
+      .select('id')
+      .from('page')
+      .where('id', 100)
+      .toSql();
+
+    expect(result).toBe('select id from page where `id` = 100');
   });
 });
