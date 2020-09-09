@@ -103,6 +103,17 @@ const result = await db
   .queryListWithPaging(2); //默认每页20条，取第2页
 ```
 
+- 2.7 转为sql自己处理
+```javascript
+const result = await db
+  .select('id')
+  .from('page')
+  .where('id', 100)
+  .toSql();
+
+expect(result).toBe('select id from page where `id` = 100');
+```
+
 ### 3. 构造插入
 
 ```javascript
@@ -160,6 +171,14 @@ const result = await db
   .update("task")
   .column("action", "test-id22")
   .column("create_time", db.literals.now)
+  .where('id', 2)
+  .execute();
+
+// 字面量使用 db.literals.now 等价于 db.literal("now()")
+const result = await db
+  .update("task")
+  .column("count", db.literal("count + 1"))
+  .column("create_time", db.literal("now()"))
   .where('id', 2)
   .execute();
 ```
