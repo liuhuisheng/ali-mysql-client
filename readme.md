@@ -114,14 +114,6 @@ const result = await db
 expect(result).toBe('select id from page where `id` = 100');
 ```
 
-- 2.8 自定义SQL
-```javascript
-const result = await db
-  .sql('select id from page where `id` = ?')
-  .params([ 100 ])
-  .execute();
-```
-
 ### 3. 构造插入
 
 ```javascript
@@ -200,6 +192,17 @@ const result = await db
   .where("id", 1)
   .execute();
 ```
+
+### 6. 自定义SQL
+
+```javascript
+// 执行自定义SQL
+const result = await db
+  .sql('select id from page where `id` = ?')
+  .params([ 100 ])
+  .execute();
+```
+
  
 ### 6. 事务控制
 
