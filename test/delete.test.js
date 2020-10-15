@@ -22,11 +22,7 @@ describe('删除测试', function() {
       .where('id', 50)
       .execute();
 
-    expect(query).toBeCalledWith('delete from ?? where ?? = ?', [
-      'page',
-      'id',
-      50,
-    ]);
+    expect(query).toBeCalledWith('delete from `page` where `id` = 50', []);
     expect(result).toBe(mockResult);
   });
 });

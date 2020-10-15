@@ -29,22 +29,7 @@ describe('更新测试', function() {
       .where('id', 50)
       .execute();
 
-    expect(query).toBeCalledWith(
-      'update ?? set ?? = ?,?? = ?,?? = ?,?? = ? where ?? = ?',
-      [
-        'page',
-        'name',
-        'name1',
-        'type',
-        'visual',
-        'tech',
-        'fusion',
-        'url',
-        'https://96.1688.com/123.html',
-        'id',
-        50,
-      ]
-    );
+    expect(query).toBeCalledWith("update `page` set `name` = 'name1',`type` = 'visual',`tech` = 'fusion',`url` = 'https://96.1688.com/123.html' where `id` = 50", []);
     expect(result).toBe(mockResult);
   });
 
@@ -57,10 +42,7 @@ describe('更新测试', function() {
       .where('id', 50)
       .execute();
 
-    expect(query).toBeCalledWith(
-      'update ?? set ?? = ?,?? = ?,?? = ? where ?? = ?',
-      [ 'page', 'name', 'name1', 'type', 'visual', 'tech', 'fusion', 'id', 50 ]
-    );
+    expect(query).toBeCalledWith("update `page` set `name` = 'name1',`type` = 'visual',`tech` = 'fusion' where `id` = 50", []);
     expect(result).toBe(mockResult);
   });
 });

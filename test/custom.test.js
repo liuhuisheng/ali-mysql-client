@@ -27,7 +27,7 @@ describe('自定义SQL测试', function() {
       .params([ 50 ])
       .toSql();
 
-    expect(query).toBeCalledWith('select * from page where id = ?', [ 50 ]);
+    expect(query).toBeCalledWith('select * from page where id = 50', []);
     expect(result1).toBe(mockResult);
     expect(result2).toBe('select * from page where id = 50');
   });

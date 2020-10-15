@@ -25,11 +25,7 @@ describe('插入测试', function() {
       url: 'https://96.1688.com/123.html',
     };
     const result = await db.insert('page', data).execute();
-    expect(query).toBeCalledWith('insert into ??(??) values (?)', [
-      'page',
-      [ 'name', 'type', 'tech', 'url' ],
-      [ 'name1', 'visual', 'fusion', 'https://96.1688.com/123.html' ],
-    ]);
+    expect(query).toBeCalledWith("insert into `page`(`name`, `type`, `tech`, `url`) values ('name1', 'visual', 'fusion', 'https://96.1688.com/123.html')", []);
     expect(result).toBe(mockResult);
   });
 
@@ -41,11 +37,7 @@ describe('插入测试', function() {
       .column('tech', 'fusion')
       .execute();
 
-    expect(query).toBeCalledWith('insert into ??(??) values (?)', [
-      'page',
-      [ 'name', 'type', 'tech' ],
-      [ 'name1', 'visual', 'fusion' ],
-    ]);
+    expect(query).toBeCalledWith("insert into `page`(`name`, `type`, `tech`, `url`) values ('name1', 'visual', 'fusion', 'https://96.1688.com/123.html')", []);
     expect(result).toBe(mockResult);
   });
 });
